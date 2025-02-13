@@ -52,7 +52,7 @@ namespace NZWalks.API.Repository
                 return null;
             }
             
-            // Convert DTO to Domain Model
+            // Update Model with the latest data
             foundRegion.Name = regionRequestDto.Name;
             foundRegion.Code = regionRequestDto.Code;
             foundRegion.RegionImageUrl = regionRequestDto.RegionImageUrl;
