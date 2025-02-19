@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NZWalks.API.CustomActionFilters;
 using NZWalks.API.Models.Domain;
@@ -36,9 +35,10 @@ namespace NZWalks.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll([FromQuery] string? filterOn, [FromQuery] string? filterQuery)
+        public async Task<IActionResult> GetAll([FromQuery] string? filterOn, [FromQuery] string? filterQuery,
+            [FromQuery] string? sortBy, [FromQuery] bool? isAsc)
         {
-            var walkDomainModels = await walkRepository.GetAllAsync(filterOn, filterQuery);
+            var walkDomainModels = await walkRepository.GetAllAsync(filterOn, filterQuery, sortBy, isAsc?? true);
 
             var walkDtos = mapper.Map<List<WalkDto>>(walkDomainModels);
 
