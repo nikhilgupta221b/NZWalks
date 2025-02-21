@@ -22,7 +22,8 @@ namespace NZWalks.API.Repository
         }
 
         public async Task<List<Walk>> GetAllAsync(string? filterOn = null, string? filterQuery = null,
-            string? sortBy = null, bool isAsc = true)
+            string? sortBy = null, bool isAsc = true,
+            int page = 1, int pageSize = 1000)
         {
             // This will not pass Difficulty or Region objects inside walk object
             // List<Walk> walks = await dbContext.Walks.ToListAsync();
@@ -54,7 +55,9 @@ namespace NZWalks.API.Repository
                 }
             }
             
-            return await walks.ToListAsync();
+            // Pagination
+            int skip = (page - 1) * pageSize;
+            return await walks.Skip(skip).Take(pageSize).ToListAsync();
         }
 
         public async Task<Walk?> GetByIdAsync(Guid id)
